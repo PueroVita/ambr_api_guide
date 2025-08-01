@@ -58,7 +58,8 @@ function bioAgeWithAuth(token) {
         if(data) {
             makeRequest('POST',data,bio_options)
             .then((bioage) => {
-                console.log("Bioage: "+bioage.response);
+                console.log("Bioage: "+bioage.bioage);
+                console.log("with metadata: "+bioage.metadata);
             },
         (err) => {
             console.log(err);
