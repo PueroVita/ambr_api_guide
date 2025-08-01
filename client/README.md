@@ -1,9 +1,9 @@
 Either generate a key
 ```
-cd bioage/api/keys
+cd keys
 ssh-keygen -t rsa -b 4096 -m PEM -f userAlfa
 ```
-or drop your PEM key and pub file in '/keys'
+which you register, or drop your existing PEM key and pub file in '/keys'
 then
 ```
 docker compose up -d --build bioageapi
