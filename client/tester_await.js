@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import crypto from "crypto";
 
-const dataFile = "./../../../tests/one_individual.csv";
+const dataFile = "./filtered_variables.csv";
 
 const username = "userAlfa";
 const key_path = "../keys/userAlfa";
