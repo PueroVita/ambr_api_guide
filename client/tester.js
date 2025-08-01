@@ -13,7 +13,7 @@ const bioage_path = "/bioage_predictor?gender="+gender;
 
 const challenge_path = "/auth/challenge";
 const verify_path = "/auth/verify";
-const secure_path = "/auth/secure?username="+username;
+const secure_path = "/auth/secure";
 
 function makeRequest(method,payload,custom_options){
     return new Promise((resolve,reject) => {
@@ -59,7 +59,7 @@ function bioAgeWithAuth(token) {
             makeRequest('POST',data,bio_options)
             .then((bioage) => {
                 console.log("Bioage: "+bioage.bioage);
-                console.log("with metadata: "+bioage.metadata);
+                console.log("with metadata: "+bioage.metadata); // Metadata will contain many exciting things int he future ~
             },
         (err) => {
             console.log(err);
@@ -79,7 +79,7 @@ makeRequest('GET',"",{}).then(
     }
 )
 
-// -------------- Authentication Guide ---------------------------
+// ------------------- Authentication Guide ---------------------------
 
 // 1. Load private key
 const private_pem_key = fs.readFileSync(key_path, 'utf-8')
@@ -132,9 +132,9 @@ makeRequest(
                 }
             }
 
-            makeRequest('GET',"",secure_options).then(
+            makeRequest('POST',"",secure_options).then(
                 (secureResponse) => {
-                    console.log("Secure response: "+secureResponse);
+                    console.log("Secure response: ", secureResponse);
 
                     //Once the token is validated, you can make a call for bioage
                     bioAgeWithAuth(token);
