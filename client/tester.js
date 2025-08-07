@@ -50,7 +50,7 @@ function bioAgeWithAuth(token) {
         }
     }
 
-    fs.readFile("./filtered_variables.csv", 'utf-8', function (err, data) {
+    fs.readFile("./filtered_variables1.csv", 'utf-8', function (err, data) {
         if (err) {
             console.log("Error reading the file: " + err);
             process.exit(-2);
