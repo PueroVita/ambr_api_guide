@@ -3,17 +3,17 @@ import crypto from "crypto";
 
 const dataFile = "./filtered_variables.csv";
 
-const username = "userAlfa";
-const key_path = "../keys/userAlfa";
+const username = "userAlpha";
+const key_path = "../keys/userAlpha";
 
-const host = "http://localhost";
-const port = 5064;
+const url = new URL("https://bioage.ambr.no");
+
 const gender = "female";
 
-const CHALLENGE_PATH = `${host}:${port}/auth/challenge`;
-const VERIFY_PATH = `${host}:${port}/auth/verify`;
-const BIOAGE_PATH = `${host}:${port}/bioage_predictor?gender=${gender}`;
-const SECURE_PATH = `${host}:${port}/auth/secure`;
+const CHALLENGE_PATH = `https://${url.host}:${url.port}/auth/challenge`;
+const VERIFY_PATH = `https://${url.host}:${url.port}/auth/verify`;
+const BIOAGE_PATH = `https://${url.host}:${url.port}/bioage_predictor/csv?gender=${gender}`;
+const SECURE_PATH = `https://${url.host}:${url.port}/auth/secure`;
 
 const private_pem_key = fs.readFileSync(key_path, "utf-8");
 const private_key = crypto.createPrivateKey({

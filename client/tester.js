@@ -1,15 +1,15 @@
-var http = require('http');
-var fs = require('fs');
-var crypto = require('crypto');
+const https = require('https');
+const fs = require('fs');
+const crypto = require('crypto');
+const { URL } = require('url');
 
-const username = "userAlfa";
-const key_path = "../keys/userAlfa";
+const username = "userAlpha";
+const key_path = "../keys/userAlpha";
 
-const host = "localhost";
-const port = 5064;
+const url = new URL("https://bioage.ambr.no");
 
 const gender = "female";
-const bioage_path = "/bioage_predictor?gender="+gender;
+const bioage_path = "/bioage_predictor/csv?gender="+gender;
 
 const challenge_path = "/auth/challenge";
 const verify_path = "/auth/verify";
@@ -17,14 +17,14 @@ const secure_path = "/auth/secure";
 
 function makeRequest(method,payload,custom_options){
     return new Promise((resolve,reject) => {
-        var options = {
+        const options = {
             ...custom_options,
-            host,
-            port,
+            host: url.hostname,
+            port: url.port,
             method,
         }
-        var result = null;
-        var request = http.request(options, function(response) {
+        let result = null;
+        let request = https.request(options, function(response) {
             response.on('data', function (chunk) {
                 result = JSON.parse(chunk);
             });
@@ -42,7 +42,7 @@ function makeRequest(method,payload,custom_options){
 
 // Bioage call with token
 function bioAgeWithAuth(token) {
-    var bio_options = {
+    const bio_options = {
         path: bioage_path,
         headers: {
             'Content-Type': 'text/csv',
@@ -91,7 +91,7 @@ const private_key = crypto.createPrivateKey(
 )
 
 // 2. Request challenge (nonce) from server
-var challenge_options = {
+const challenge_options = {
     path: challenge_path
 }
 
