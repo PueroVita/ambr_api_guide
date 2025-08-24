@@ -14,6 +14,7 @@ const bioage_path = "/bioage_predictor/csv?gender="+gender;
 const challenge_path = "/auth/challenge";
 const verify_path = "/auth/verify";
 const secure_path = "/auth/secure";
+const variable_path = "/bioage_variable_metadata"
 
 function makeRequest(method,payload,custom_options){
     return new Promise((resolve,reject) => {
@@ -27,7 +28,6 @@ function makeRequest(method,payload,custom_options){
         let request = https.request(options, function(response) {
             response.on('data', function (chunk) {
                 result = JSON.parse(chunk);
-                console.log(result);
             });
             response.on('end', function(){
                 resolve(result)
@@ -39,6 +39,23 @@ function makeRequest(method,payload,custom_options){
         request.write(payload);
         request.end()
     })
+}
+
+// Bioage variables with token
+function getVarsWithAuth(token) {
+    const var_options = {
+        path: bioage_path,
+        headers: {
+            'Authorization': "Bearer "+token
+        }
+    }
+    makeRequest('GET',"",var_options)
+    .then((response) => {
+        console.log("Variables: "+response);
+    },
+        (err) => {
+            console.log(err);
+    });
 }
 
 // Bioage call with token
@@ -137,7 +154,8 @@ makeRequest(
                 (secureResponse) => {
                     console.log("Secure response: ", secureResponse);
 
-                    // Once you have a valid token, you can make a call for bioage
+                    // Once you have a valid token, you can make a call for bioage and the variable names
+                    getVarsWithAuth(token);
                     bioAgeWithAuth(token);
                 }
             )
