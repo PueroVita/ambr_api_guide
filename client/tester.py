@@ -3,8 +3,8 @@ import httpx
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 
-USERNAME = "userAlpha"
-KEY_PATH = "./../keys/userAlpha"
+USERNAME = "userAlfa"
+KEY_PATH = "./../keys/userAlfa"
 API_BASE = "https://bioage.ambr.no"
 
 # 1. Load private key

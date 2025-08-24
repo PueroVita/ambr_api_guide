@@ -3,8 +3,8 @@ const fs = require('fs');
 const crypto = require('crypto');
 const { URL } = require('url');
 
-const username = "userAlpha";
-const key_path = "../keys/userAlpha";
+const username = "userAlfa";
+const key_path = "../keys/userAlfa";
 
 const url = new URL("https://bioage.ambr.no");
 
@@ -19,7 +19,7 @@ function makeRequest(method,payload,custom_options){
     return new Promise((resolve,reject) => {
         const options = {
             ...custom_options,
-            host: url.hostname,
+            host: url.host,
             port: url.port,
             method,
         }
@@ -27,6 +27,7 @@ function makeRequest(method,payload,custom_options){
         let request = https.request(options, function(response) {
             response.on('data', function (chunk) {
                 result = JSON.parse(chunk);
+                console.log(result);
             });
             response.on('end', function(){
                 resolve(result)
@@ -59,11 +60,11 @@ function bioAgeWithAuth(token) {
             makeRequest('POST',data,bio_options)
             .then((bioage) => {
                 console.log("Bioage: "+bioage.bioage);
-                console.log("with metadata: "+bioage.metadata); // Metadata will contain many exciting things int he future ~
+                console.log("with metadata: "+bioage.metadata); // Metadata will contain many exciting things in the future ~
             },
-        (err) => {
-            console.log(err);
-        });
+            (err) => {
+                console.log(err);
+            });
         }
         else {
             console.log("No data");
@@ -136,7 +137,7 @@ makeRequest(
                 (secureResponse) => {
                     console.log("Secure response: ", secureResponse);
 
-                    //Once the token is validated, you can make a call for bioage
+                    // Once you have a valid token, you can make a call for bioage
                     bioAgeWithAuth(token);
                 }
             )

@@ -3,8 +3,8 @@ import crypto from "crypto";
 
 const dataFile = "./filtered_variables.csv";
 
-const username = "userAlpha";
-const key_path = "../keys/userAlpha";
+const username = "userAlfa";
+const key_path = "../keys/userAlfa";
 
 const url = new URL("https://bioage.ambr.no");
 
