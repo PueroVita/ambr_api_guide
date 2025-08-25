@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import crypto from "crypto";
 
-const dataFile = "./filtered_variables.csv";
+const dataFile = "./filtered_variables1_formatted.csv";
 
-const username = "userAlfa";
-const key_path = "../keys/userAlfa";
+const username = "<YOUR_USERNAME>";
+const key_path = "../keys/<YOUR_PRIVATE_KEY_FILE_NAME>";
 
 const url = new URL("https://bioage.ambr.no");
 
@@ -12,7 +12,7 @@ const gender = "female";
 
 const CHALLENGE_PATH = `https://${url.host}:${url.port}/auth/challenge`;
 const VERIFY_PATH = `https://${url.host}:${url.port}/auth/verify`;
-const BIOAGE_PATH = `https://${url.host}:${url.port}/bioage_predictor/csv?gender=${gender}`;
+const BIOAGE_PATH = `https://${url.host}:${url.port}/bioage_predictor?gender=${gender}`;
 const SECURE_PATH = `https://${url.host}:${url.port}/auth/secure`;
 
 const private_pem_key = fs.readFileSync(key_path, "utf-8");

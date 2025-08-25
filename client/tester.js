@@ -3,13 +3,15 @@ const fs = require('fs');
 const crypto = require('crypto');
 const { URL } = require('url');
 
-const username = "userAlfa";
-const key_path = "../keys/userAlfa";
+const username = "<YOUR_USERNAME>";
+const key_path = "../keys/<YOUR_PRIVATE_KEY_FILE_NAME>";
+
+const test_file_path = "./filtered_variables1_formatted.csv"; // Try swapping out 1 with 2, 3 or 4 and see the output change!
 
 const url = new URL("https://bioage.ambr.no");
 
 const gender = "female";
-const bioage_path = "/bioage_predictor/csv?gender="+gender;
+const bioage_path = "/bioage_predictor?gender="+gender;
 
 const challenge_path = "/auth/challenge";
 const verify_path = "/auth/verify";
@@ -24,13 +26,13 @@ function makeRequest(method,payload,custom_options){
             port: url.port,
             method,
         }
-        let result = null;
+        let result = "";
         let request = https.request(options, function(response) {
             response.on('data', function (chunk) {
-                result = JSON.parse(chunk);
+                result = result+chunk;
             });
             response.on('end', function(){
-                resolve(result)
+                resolve(JSON.parse(result))
             });
         });
         request.on('error', function(err) {
@@ -41,17 +43,19 @@ function makeRequest(method,payload,custom_options){
     })
 }
 
-// Bioage variables with token
+// Get variables names and descriptions with token
 function getVarsWithAuth(token) {
     const var_options = {
-        path: bioage_path,
+        path: variable_path,
         headers: {
             'Authorization': "Bearer "+token
         }
     }
     makeRequest('GET',"",var_options)
     .then((response) => {
-        console.log("Variables: "+response);
+        // console.log(response.variables); // Takes a lot of space in the output, but please uncomment for a better display than the file
+        fs.writeFileSync('./variables_with_desc.txt', JSON.stringify(response.variables));
+        console.log("Variables written to file");
     },
         (err) => {
             console.log(err);
@@ -68,7 +72,7 @@ function bioAgeWithAuth(token) {
         }
     }
 
-    fs.readFile("./filtered_variables1.csv", 'utf-8', function (err, data) {
+    fs.readFile(test_file_path, 'utf-8', function (err, data) {
         if (err) {
             console.log("Error reading the file: " + err);
             process.exit(-2);
@@ -76,6 +80,7 @@ function bioAgeWithAuth(token) {
         if(data) {
             makeRequest('POST',data,bio_options)
             .then((bioage) => {
+                console.log("User: "+bioage.eid);
                 console.log("Bioage: "+bioage.bioage);
                 console.log("with metadata: "+bioage.metadata); // Metadata will contain many exciting things in the future ~
             },
@@ -135,11 +140,11 @@ makeRequest(
         makeRequest(
             'POST',
             '{"username": "'+username+'","signature": "'+encoded_signature+'"}',
-            verify_options)
+            verify_options
+        )
         .then(
             (tokenResponse) => {
-                console.log("Server response: 200"); // TODO update hardcoded 200
-                console.log(tokenResponse);
+                console.log("Server response: "+JSON.stringify(tokenResponse));
                 
 // 5. Secure authentication
                 let token = tokenResponse.token
