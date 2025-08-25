@@ -1,25 +1,20 @@
 Either generate a key
 ```
 cd keys
-ssh-keygen -t rsa -b 4096 -m PEM -f userAlfa
+ssh-keygen -t rsa -b 4096 -m PEM -f <YOUR USERNAME>
 ```
-which you register, or drop your existing PEM key and pub file in '/keys'
+which you register with Ambr Institute, or drop your existing PEM key and pub file in '/keys'
 then
 ```
-docker compose up -d --build bioageapi
-```
-
 to test use `client/tester.py` or `client/tester.js`. 
 They can be run with 
 ```
 node client/tester.js
+node client/tester_await.js
 python client/tester.py
 ```
+remember to install dependencies where relevant
 
-to test BioAge endpoint from command line
+to test API from command line
 ```
-cd tests
-curl -X POST http://localhost:5064/bioage_predictor\?gender=female \
-          -H "Content-Type: text/csv" \
-     --data-binary "@one_individual.csv"
-```
+curl https://bioage.ambr.no/
