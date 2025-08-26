@@ -39,7 +39,7 @@ This will generate the key pair in your `/keys` folder,
 If you are already a registered user, drop your existing 
 PEM key and `.pub` file in the `/keys` subfolder.
 
-> **EXAMPLE:** With username set to 'AmbrTest' you will have or generate the files 
+> **EXAMPLE:** With username set to 'AmbrTest' you may have, or have generated files named 
 `/client/AmbrTest` and `/client/AmbrTest.pub`.
 
 
