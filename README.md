@@ -48,7 +48,7 @@ To test API connectivity from command line run
 ```bash
 curl https://bioage.ambr.no/
 ```
-If succesful you should see
+If successful you should see a response like
 ```bash
 StatusCode        : 200
 StatusDescription : OK
