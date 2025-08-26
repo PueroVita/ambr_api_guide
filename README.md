@@ -77,7 +77,7 @@ RawContent ...
 
     With example file `./filtered_variables1_formatted.csv` you should expect printed output
     ```bash
-    Nonce received: <HASH>>
+    Nonce received: <HASH>
     Server response: 200 {"authenticated":true,"token":"<TOKEN>"}
     Secure response: ['Welcome <YOUR_USERNAME> to the bioage API of Ambr Institute, you are AUTHENTICATED!']
     Securely predicting bioage from csv input...
