@@ -34,7 +34,7 @@ preferred username:
 cd keys
 ssh-keygen -t rsa -b 4096 -m PEM -f <YOUR USERNAME>
 ```
-This will generate the key pair in your `/client` folder, 
+This will generate the key pair in your `/keys` folder, 
 
 If you are already a registered user, drop your existing 
 PEM key and `.pub` file in the `/keys` subfolder.
