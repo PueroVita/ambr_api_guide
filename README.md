@@ -23,7 +23,7 @@ files `/client/filtered_variables_X_formatted.csv`.
 
 ***In order to access the API, you must register with Ambr Institute 
 to add your key pair (or have Ambr Institute add it for you). 
-Reach out to contact contact@ambr.no to request access.***
+Reach out to contact@ambr.no to request access.***
 
 ### 1.1. Authentication
 The bioage API authenticates through a set of public-private ssh keys.
@@ -50,22 +50,19 @@ curl https://bioage.ambr.no/
 ```
 If successful you should see a response like
 ```bash
-StatusCode        : 200
-StatusDescription : OK
-Content           : ["Welcome to the bioage API of Ambr Institute!"]
-RawContent ...
+ ["Welcome to the bioage API of Ambr Institute!"]
 ```
 
 
 ### 1.3. Test API in Python
-1. Ensure your preferred Python environment has the relevant dependencies
-   listed in `/client/requirements.txt` installed.
-2. In the file `/client/tester.py` replace 
-    - Line 8: Replace `<YOUR_USERNAME>` with the username set in your PEM file
+1. Ensure your preferred Python environment has the relevant dependencies;
+   `cryptography`, `httpx`, `pandas`.
+2. In the file `/client/tester.py`:
+    - Replace `<YOUR_USERNAME>` with the username set in your PEM file
       (In example in Section 1.1. above 'AmbrTest')
-    - Line 9: Replace `<YOUR_PRIVATE_KEY_FILE_NAME>` with name of your PEM file
+    - Replace `<YOUR_PRIVATE_KEY_FILE_NAME>` with name of your PEM file
       (In example in Section 1.1. above 'AmbrTest')
-    - Lines 53 and 83: Set which csv file example to run, default `filtered_variables1_formatted.csv`.
+    - Set which csv file example to run, default `filtered_variables1_formatted.csv`.
 3. To test, run `client/tester.py`:
     ```bash
     cd client
@@ -89,21 +86,13 @@ RawContent ...
     ``` 
 
 ### 1.4. Test API in node.js
-1. Ensure your preferred node environment has the relevant dependencies
-   listed in `/client/package.json` installed.
-2. In the file `/client/tester.js` replace 
-    - Line 6: Replace `<YOUR_USERNAME>` with the username set in your PEM file
+1. In the files `/client/tester.js` and `/client/tester_await.js`: 
+    - Replace `<YOUR_USERNAME>` with the username set in your PEM file
       (In example in Section 1.1. above 'AmbrTest')
-    - Line 7: Replace `<YOUR_PRIVATE_KEY_FILE_NAME>` with name of your PEM file
+    - Replace `<YOUR_PRIVATE_KEY_FILE_NAME>` with name of your PEM file
       (In example in Section 1.1. above 'AmbrTest')
-    - Line 9: Set which csv file example to run, default `filtered_variables1_formatted.csv`.
-3. In the file `/client/tester_await.js` replace 
-    - Line 6: Replace `<YOUR_USERNAME>` with the username set in your PEM file
-      (In example in Section 1.1. above 'AmbrTest')
-    - Line 7: Replace `<YOUR_PRIVATE_KEY_FILE_NAME>` with name of your PEM file
-      (In example in Section 1.1. above 'AmbrTest')
-    - Line 4: Set which csv file example to run, default `filtered_variables1_formatted.csv`.
-4. To test use  `client/tester.js` or `client/tester_await.js`;
+    - Set which csv file example to run, default `filtered_variables1_formatted.csv`.
+2. To test use  `client/tester.js` or `client/tester_await.js`;
     ```bash
     node client/tester.js
     node client/tester_await.js
