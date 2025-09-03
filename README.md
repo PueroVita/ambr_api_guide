@@ -74,15 +74,28 @@ If successful you should see a response like
 
     With example file `./filtered_variables1_formatted.csv` you should expect printed output
     ```bash
-    Nonce received: <HASH>
-    Server response: 200 {"authenticated":true,"token":"<TOKEN>"}
-    Secure response: ['Welcome <YOUR_USERNAME> to the bioage API of Ambr Institute, you are AUTHENTICATED!']
-    Securely predicting bioage from csv input...
-        Bioage prediction response from csv input in 0.49s, female: {'bioage': 64.19, 'eid': '12345'}
-        Bioage prediction response from csv input in 0.49s, male: {'bioage': 64.23, 'eid': '12345'}
-    Securely predicting bioage from json input...
-        Bioage prediction response from json input in 0.47s, female: {'bioage': 64.19, 'eid': '12345'}
-        Bioage prediction response from json input in 0.43s, male: {'bioage': 64.23, 'eid': '12345'}
+    1. Authenticate towards server
+      Nonce received: <HASH>
+      Server response: 200 {"authenticated":true,"token":"<TOKEN>"}
+      Secure response: ['Welcome <YOUR_USERNAME> to the bioage API of Ambr Institute, you are AUTHENTICATED!']
+    2. Testing bioage endpoints
+      Securely predicting bioage from csv input...
+        Bioage prediction response from csv input in 0.43s, female: {'bioage': 64.19, 'eid': '12345'}
+        Bioage prediction response from csv input in 0.43s, male: {'bioage': 64.23, 'eid': '12345'}
+      Securely predicting bioage from json input...
+        Bioage prediction response from json input in 0.43s, female: {'bioage': 64.19, 'eid': '12345'}
+        Bioage prediction response from json input in 0.41s, male: {'bioage': 64.23, 'eid': '12345'}
+      Securely fetching bioage variable metadata...
+        Variable metadata response contains 102 variables
+    3. Testing questionnaire endpoints
+      Securely fetching English questionnaire for female...
+        Questionnaire response contains 96 questions
+      Securely fetching Norwegian questionnaire for female...
+        Questionnaire response contains 96 questions
+      Securely fetching English questionnaire for male...
+        Questionnaire response contains 92 questions
+      Securely fetching Norwegian questionnaire for male...
+        Questionnaire response contains 92 questions
     ``` 
 
 ### 1.4. Test API in node.js
