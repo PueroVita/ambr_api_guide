@@ -10,13 +10,16 @@ const test_file_path = "./filtered_variables1_formatted.csv"; // Try swapping ou
 
 const url = new URL("https://bioage.ambr.no");
 
+// change these for different outputs
 const gender = "female";
-const bioage_path = "/bioage_predictor?gender="+gender;
+const language = "en";
 
 const challenge_path = "/auth/challenge";
 const verify_path = "/auth/verify";
 const secure_path = "/auth/secure";
 const variable_path = "/bioage_variable_metadata"
+const quest_path = "/questionnaire?gender="+gender+"&language="+language
+const bioage_path = "/bioage_predictor?gender="+gender;
 
 function makeRequest(method,payload,custom_options){
     return new Promise((resolve,reject) => {
@@ -56,6 +59,25 @@ function getVarsWithAuth(token) {
         // console.log(response.variables); // Takes a lot of space in the output, but please uncomment for a better display than the file
         fs.writeFileSync('./variables_with_desc.txt', JSON.stringify(response.variables));
         console.log("Variables written to file");
+    },
+        (err) => {
+            console.log(err);
+    });
+}
+
+// Get questionnaire json
+function getQuestJsonWithAuth(token) {
+    const quest_options = {
+        path: quest_path,
+        headers: {
+            'Authorization': "Bearer "+token
+        }
+    }
+    makeRequest('GET',"", quest_options)
+    .then((response) => {
+        console.log(typeof response);
+        fs.writeFileSync('./questionnaire_json.json', JSON.stringify(response));
+        console.log("Questionnaire written to file");
     },
         (err) => {
             console.log(err);
@@ -159,9 +181,13 @@ makeRequest(
                 (secureResponse) => {
                     console.log("Secure response: ", secureResponse);
 
-                    // Once you have a valid token, you can make a call for bioage and the variable names
+                    // Once you have a valid token, you can make a call for bioage, variable names and the questionnaire
                     getVarsWithAuth(token);
-                    bioAgeWithAuth(token);
+
+                    getQuestJsonWithAuth(token); // response in questionnaire_json.json
+
+                    bioAgeWithAuth(token); // response in variables_with_desc.txt
+
                 }
             )
 
